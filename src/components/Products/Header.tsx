@@ -5,14 +5,16 @@ import { RootState } from "../../store/store";
 // import { Link } from "react-router-dom";
 
 const Header = () => {
-    const numberProduct = useSelector((state: RootState)=> state.product?.proNumber)
+  const numberProduct = useSelector(
+    (state: RootState) => state.product?.proNumber
+  );
   return (
     <div
       className="fixed flex items-center top-0 px-20 text-emerald-400 text-xl font-bold
     w-full h-14 bg-opacity-75 z-40 bg-neutral-700 shadow-md shadow-neutral-300 justify-between"
     >
       <div>
-        <Link to={"/"}>
+        <Link to={"/home"}>
           <h2>FakeShop</h2>
         </Link>
       </div>
@@ -29,7 +31,9 @@ const Header = () => {
         <Link to={"/login"}>
           <p>Login</p>
         </Link>
-        <button>Logout</button>
+        <Link to={"/"}>
+          <button>Logout</button>
+        </Link>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ const ProductDetailPage = () => {
     // console.log("So Luong: ", number); // Bây giờ sẽ hiển thị giá trị đã cập nhật
     dispatch(addProduct(number));
 
-    navigate("/");
+    navigate("/home");
     // <ShowNotification/>
   };
 

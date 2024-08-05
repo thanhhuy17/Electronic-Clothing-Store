@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Gọi API để lấy data các sản phẩm
 export const fetchProductData = async () => {
     try {
         const res = await axios.get("products")
