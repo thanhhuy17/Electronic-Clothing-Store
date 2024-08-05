@@ -27,7 +27,7 @@ export const productSlice = createSlice({
         },
         addProduct: (state, action) => {
             state.proNumber = action.payload
-            console.log("Kiểm tra số lượng mua hàng: ", action.payload);
+            // console.log("Kiểm tra số lượng mua hàng: ", action.payload);
         }
     }
 })
