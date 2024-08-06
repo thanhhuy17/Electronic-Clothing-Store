@@ -2,9 +2,11 @@ import { GiShoppingCart } from "react-icons/gi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store/store";
+import { useState } from "react";
 // import { Link } from "react-router-dom";
 
 const Header = () => {
+  const [user, setUser] = useState("");
   const numberProduct = useSelector(
     (state: RootState) => state.product?.proNumber
   );
@@ -24,13 +26,21 @@ const Header = () => {
           {numberProduct}
         </span>
       </div>
+
       <div className="flex gap-3 text-[.9rem]">
-        <Link to={"/register"}>
-          <p>Register</p>
-        </Link>
-        <Link to={"/login"}>
-          <p>Login</p>
-        </Link>
+        {user ? (
+          <div className="flex gap-3">Hi, {user}</div>
+        ) : (
+          <div className="flex gap-3">
+            <Link to={"/register"}>
+              <p>Register</p>
+            </Link>
+            <Link to={"/login"}>
+              <p>Login</p>
+            </Link>
+          </div>
+        )}
+
         <Link to={"/"}>
           <button>Logout</button>
         </Link>

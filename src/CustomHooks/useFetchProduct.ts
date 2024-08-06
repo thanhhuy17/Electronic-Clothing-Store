@@ -1,5 +1,6 @@
-import axios from "axios"
+
 import { useEffect, useState } from "react"
+import { API_Products } from "../main"
 
 const useFetchProduct = (endPoint: string) => {
     const [data, setData] = useState([])
@@ -7,7 +8,7 @@ const useFetchProduct = (endPoint: string) => {
     const fetchData = async () => {
         try {
             setLoading(true)
-            const res = await axios.get(endPoint)
+            const res = await API_Products.get(endPoint)
             setData(res?.data)
             setLoading(false)
 

@@ -1,9 +1,10 @@
-import axios from "axios";
+
+import { API_Products } from "../main";
 
 // Gọi API để lấy data các sản phẩm
 export const fetchProductData = async () => {
     try {
-        const res = await axios.get("products")
+        const res = await API_Products.get("products")
         // console.log("Check data: ", res);
         return res
     } catch (error) {
