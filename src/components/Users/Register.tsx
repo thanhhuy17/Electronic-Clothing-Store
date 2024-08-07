@@ -2,6 +2,7 @@ import { useState } from "react";
 // import { registerUser } from "../../redux/apiRequest";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../API_Request/apiRequest";
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -9,7 +10,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleRegisor = (event) => {
+  const handleRegisor = (event: any) => {
     event.preventDefault();
     const newUser = {
       email: email,
@@ -24,21 +25,21 @@ const Register = () => {
       <form onSubmit={handleRegisor} className="flex flex-col gap-5 w-[350px]">
         <label>EMAIL</label>
         <input
-          className="pl-2 py-1 rounded-md"
+          className="pl-2 py-1 rounded-md text-black"
           type="text"
           placeholder="Enter your email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <label>USERNAME</label>
         <input
-          className="pl-2 py-1 rounded-md"
+          className="pl-2 py-1 rounded-md text-black"
           type="text"
           placeholder="Enter your username"
           onChange={(e) => setUsername(e.target.value)}
         />
         <label>PASSWORD</label>
         <input
-          className="pl-2 py-1 rounded-md"
+          className="pl-2 py-1 rounded-md text-black"
           type="password"
           placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}

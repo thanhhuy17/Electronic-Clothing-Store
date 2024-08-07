@@ -1,7 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export type TypeCurrentUser = {
+    id: string,
+    username: string,
+    email: string,
+    admin: boolean
+}
 
-const initialState = {
+type TypeAuth = {
+    login: {
+        currentUser: TypeCurrentUser | null,
+        isFetching: boolean,
+        error: boolean,
+    },
+    register: {
+        isFetching: boolean,
+        error: boolean,
+        success: boolean,
+    },
+    logout: {
+        isFetching: boolean,
+        error: boolean,
+    },
+}
+
+const initialState: TypeAuth = {
     login: {
         currentUser: null,
         isFetching: false,

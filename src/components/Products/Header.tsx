@@ -2,11 +2,17 @@ import { GiShoppingCart } from "react-icons/gi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store/store";
-import { useState } from "react";
-// import { Link } from "react-router-dom";
 
 const Header = () => {
-  const [user, setUser] = useState("");
+  const user = useSelector(
+    (state: RootState) => state.auth?.login?.currentUser?.username
+  );
+
+  const admin = useSelector(
+    (state: RootState) => state.auth?.login?.currentUser?.admin
+  );
+
+  // console.log(user);
   const numberProduct = useSelector(
     (state: RootState) => state.product?.proNumber
   );
@@ -16,9 +22,13 @@ const Header = () => {
     w-full h-14 bg-opacity-75 z-40 bg-neutral-700 shadow-md shadow-neutral-300 justify-between"
     >
       <div>
-        <Link to={"/home"}>
+        {user ? (
+          <Link to={"/home"}>
+            <h2>FakeShop</h2>
+          </Link>
+        ) : (
           <h2>FakeShop</h2>
-        </Link>
+        )}
       </div>
       <div className="flex justify-center items-center hover:cursor-pointer">
         <GiShoppingCart size={"2.5rem"} />
@@ -41,9 +51,21 @@ const Header = () => {
           </div>
         )}
 
-        <Link to={"/"}>
-          <button>Logout</button>
-        </Link>
+        {user && admin ? (
+          <Link to={"/users"}>
+            <button>Users</button>
+          </Link>
+        ) : (
+          ""
+        )}
+
+        {user ? (
+          <Link to={"/"}>
+            <button>Logout</button>
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

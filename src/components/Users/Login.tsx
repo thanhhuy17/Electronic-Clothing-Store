@@ -10,7 +10,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: any) => {
     e.preventDefault();
     const newUser = {
       username: username,
@@ -24,14 +24,14 @@ const Login = () => {
       <form onSubmit={handleLogin} className="flex flex-col gap-5 w-[350px]">
         <label>USERNAME</label>
         <input
-          className="pl-2 py-1 rounded-md"
+          className="pl-2 py-1 rounded-md text-black"
           type="text"
           placeholder="Enter your username"
           onChange={(e) => setUsername(e.target.value)}
         />
         <label>PASSWORD</label>
         <input
-          className="pl-2 py-1 rounded-md"
+          className="pl-2 py-1 rounded-md text-black"
           type="password"
           placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
