@@ -84,6 +84,7 @@ const authController = {
           path: "/",
           sameSite: "strict",
         });
+
         // Hide Password
         const { password, ...others } = user._doc;
         return res.status(200).json({ ...others, accessToken });
@@ -96,7 +97,7 @@ const authController = {
   //REFRESH TOKEN // REDIS
   requestRefreshToken: (req, res) => {
     // Take Request from USer
-    const refreshToken = req.cookies.refreshToken; // Take Cookie. <=> RefreshToken
+    const refreshToken = req.headers.refreshToken; // Take Cookie. <=> RefreshToken
     // res.status(200).json(refreshToken);
     if (!refreshToken) {
       return res.status(401).json("You're not authenticated!"); // Don't Login
