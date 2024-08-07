@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, getAllUsers } from "../../API_Request/apiRequest";
 import { Button } from "antd";
+import { createAxios } from "../../refreshToken/createInstance";
+import { loginSuccess } from "../../reducer/authSlice";
 
 const ShowUsers = () => {
-  // const axiosJWT = createAxios(user, dispatch, loginSuccess);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.auth.login?.currentUser);
   const msg = useSelector((state: RootState) => state.user?.msg);
   console.log("MSG: ", msg);
   const [showMsg, setShowMsg] = useState(true);
+  const axiosJWT = createAxios(user, dispatch, loginSuccess);
 
   useEffect(() => {
     // Login if don't Login
@@ -20,7 +22,7 @@ const ShowUsers = () => {
       navigate("/login");
     }
     if (user?.accessToken) {
-      getAllUsers(user?.accessToken, dispatch);
+      getAllUsers(user?.accessToken, dispatch, axiosJWT);
     }
   }, []);
 
@@ -30,7 +32,7 @@ const ShowUsers = () => {
   //   console.log("All Users: ", usersList);
 
   const handleDeleteUser = (userId: string) => {
-    deleteUser(user?.accessToken, dispatch, userId);
+    deleteUser(user?.accessToken, dispatch, userId, axiosJWT);
   };
 
   // Hide Message after 4s
@@ -46,9 +48,15 @@ const ShowUsers = () => {
   return (
     <div className="w-full h-full mt-[5rem] mx-[5rem] ">
       <div>
+        <div>
+          Your role:
+          <span className="text-emerald-500 font-bold">
+            {user?.admin ? "Admin" : "User"}
+          </span>
+        </div>
         {usersList?.map((user: any, index: number) => {
           return (
-            <div className="flex mb-4 justify-around items-center">
+            <main className="flex mb-4 justify-around items-center">
               <div className="flex gap-2">
                 <div>{index + 1}. </div>
                 <div>{user?.username}</div>
@@ -63,7 +71,7 @@ const ShowUsers = () => {
                   Delete
                 </Button>
               </div>
-            </div>
+            </main>
           );
         })}
       </div>
