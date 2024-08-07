@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export type TypeCurrentUser = {
-    id: string,
+    _id: string,
     username: string,
     email: string,
     admin: boolean
+    accessToken: string
 }
 
 type TypeAuth = {

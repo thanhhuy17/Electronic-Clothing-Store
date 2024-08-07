@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     users: {
-        allUsers: null,
+        allUsers: [],
         isFetching: false,
         error: false,
     },
