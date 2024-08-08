@@ -24,7 +24,12 @@ connectToMongoDB();
 //   console.log("Connected To Mongoose DB!");
 // });
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://127.0.0.1:5173", // URL của frontend
+  credentials: true, // Để cho phép gửi và nhận cookies
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 // ROUTES
