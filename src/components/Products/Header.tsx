@@ -1,13 +1,18 @@
 import { GiShoppingCart } from "react-icons/gi";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../../store/store";
+import { logoutUser } from "../../API_Request/apiRequest";
+import { createAxios } from "../../refreshToken/createInstance";
+import { logoutSuccess } from "../../reducer/authSlice";
 
 const Header = () => {
   const user = useSelector(
     (state: RootState) => state.auth?.login?.currentUser?.username
   );
-
+  const user1 = useSelector(
+    (state: RootState) => state.auth?.login?.currentUser
+  );
   const admin = useSelector(
     (state: RootState) => state.auth?.login?.currentUser?.admin
   );
@@ -16,6 +21,13 @@ const Header = () => {
   const numberProduct = useSelector(
     (state: RootState) => state.product?.proNumber
   );
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const axiosJWT = createAxios(user1, dispatch, logoutSuccess);
+  const handleLogout = () => {
+    logoutUser(navigate, user1?._id, axiosJWT, dispatch, user1?.accessToken);
+  };
   return (
     <div
       className="fixed flex items-center top-0 px-20 text-emerald-400 text-xl font-bold
@@ -60,9 +72,10 @@ const Header = () => {
         )}
 
         {user ? (
-          <Link to={"/"}>
-            <button>Logout</button>
-          </Link>
+          // <Link to={"/"} onClick={handleLogout}>
+          //   Logout
+          // </Link>
+          <button onClick={() => handleLogout()}>Logout</button>
         ) : (
           ""
         )}

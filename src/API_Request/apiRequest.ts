@@ -79,11 +79,11 @@ export const logoutUser = async (
 ) => {
     dispatch(logoutStart());
     try {
-        await axiosJWT.post("v2/auth/logout", id, {
+        await axiosJWT.post("/v2/auth/logout", id, {
             headers: { token: `Bearer ${accessToken}` },
         });
         dispatch(logoutSuccess());
-        navigate("/login");
+        navigate("/");
     } catch (err: any) {
         dispatch(logoutFailed(err.response.data));
     }

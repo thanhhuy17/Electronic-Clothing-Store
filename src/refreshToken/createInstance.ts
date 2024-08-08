@@ -5,7 +5,7 @@ import { API_Authenticated } from "../main";
 // Refresh Token
 const refreshToken = async () => {
     try {
-        const res = await API_Authenticated.post("/v2/auth/refresh", {
+        const res = await API_Authenticated.post("/v2/auth/refresh", {}, {
             withCredentials: true, // add cookie
         });
         return res.data;
@@ -16,7 +16,9 @@ const refreshToken = async () => {
 
 export const createAxios = (user: any, dispatch: any, stateSuccess: any) => {
     const newInstance = axios.create({
-        baseURL: "http://localhost:8000",
+        baseURL: "http://127.0.0.1:8000",
+        withCredentials: true, // Để axios gửi và nhận cookies
+
     });
 
     newInstance.interceptors.request.use(
