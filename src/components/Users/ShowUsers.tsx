@@ -56,7 +56,10 @@ const ShowUsers = () => {
         </div>
         {usersList?.map((user: any, index: number) => {
           return (
-            <main className="flex mb-4 justify-around items-center">
+            <main
+              key={user?._id}
+              className="flex mb-4 justify-around items-center"
+            >
               <div className="flex gap-2">
                 <div>{index + 1}. </div>
                 <div>{user?.username}</div>
