@@ -13,7 +13,7 @@ const ShowUsers = () => {
   const user = useSelector((state: RootState) => state.auth.login?.currentUser);
   const msg = useSelector((state: RootState) => state.user?.msg);
   console.log("MSG: ", msg);
-  const [showMsg, setShowMsg] = useState(true);
+  const [showMsg, setShowMsg] = useState(false);
   const axiosJWT = createAxios(user, dispatch, loginSuccess);
 
   useEffect(() => {
@@ -33,17 +33,20 @@ const ShowUsers = () => {
 
   const handleDeleteUser = (userId: string) => {
     deleteUser(user?.accessToken, dispatch, userId, axiosJWT);
+    setShowMsg(true);
+    // Gọi lại API để cập nhật danh sách người dùng
+    getAllUsers(user?.accessToken, dispatch, axiosJWT);
   };
 
   // Hide Message after 4s
   useEffect(() => {
-    if (msg) {
+    if (showMsg) {
       const timeoutId = setTimeout(() => {
         setShowMsg(false);
       }, 3000);
       return () => clearTimeout(timeoutId);
     }
-  }, [msg]);
+  }, [showMsg]);
 
   return (
     <div className="w-full h-full mt-[5rem] mx-[5rem] ">
@@ -78,7 +81,8 @@ const ShowUsers = () => {
           );
         })}
       </div>
-      <div>{showMsg && msg && <p>{msg}</p>}</div>
+      {/* <div>{showMsg && msg && <p>{msg}</p>}</div> */}
+      <div>{showMsg && <p>{msg}</p>}</div>
     </div>
   );
 };
