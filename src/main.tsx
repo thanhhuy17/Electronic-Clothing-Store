@@ -2,10 +2,11 @@ import ReactDOM from "react-dom/client";
 
 import "./index.css";
 import { Provider } from "react-redux";
-import { store } from "./store/store.ts";
+import { persistor, store } from "./store/store.ts";
 import axios from "axios";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/routing.tsx";
+import { PersistGate } from "redux-persist/integration/react";
 
 //Setup axios 1
 // export const API_Products = axios.defaults.baseURL = "https://fakestoreapi.com"; // base url
@@ -23,6 +24,8 @@ export const API_Authenticated = axios.create({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
   </Provider>
 );
