@@ -19,7 +19,7 @@ const Header = () => {
 
   // console.log(user);
   const numberProduct = useSelector(
-    (state: RootState) => state.product?.proNumber
+    (state: RootState) => state.product?.cartData.length
   );
 
   const navigate = useNavigate();
@@ -43,7 +43,9 @@ const Header = () => {
         )}
       </div>
       <div className="flex justify-center items-center hover:cursor-pointer">
-        <GiShoppingCart size={"2.5rem"} />
+        <Link to={"/cart"}>
+          <GiShoppingCart size={"2.5rem"} />
+        </Link>
         <span className="text-red-600 text-2xl bg-white px-3 rounded-full">
           {numberProduct}
         </span>

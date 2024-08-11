@@ -7,6 +7,7 @@ import Register from "../components/Users/Register";
 import PageNotFound from "../components/Products/PageNotFound";
 import WelcomeMyStore from "../components/Products/WelcomeMyStore";
 import ShowUsers from "../components/Users/ShowUsers";
+import ShowProductsCart from "../components/Products/ShowProductsCart";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/users",
         element: <ShowUsers />,
+      },
+      {
+        path: "/cart",
+        element: <ShowProductsCart />,
       },
     ],
   },

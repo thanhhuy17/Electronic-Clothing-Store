@@ -2,36 +2,41 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetchProduct from "../CustomHooks/useFetchProduct";
-import { addProduct, TypeDataProduct } from "../reducer/productReducer";
 import { FaStar } from "react-icons/fa";
 import { Button } from "antd";
+import { addProduct } from "../reducer/productReducer";
 
-interface TypeDetail extends TypeDataProduct {
-  rating: object;
-}
+// interface TypeDetail extends TypeDataProduct {
+//   rating: {
+//     rate: number;
+//     count: number;
+//   };
+// }
 
 const ProductDetailPage = () => {
-  const getAddData = useSelector(
-    (state: RootState) => state.product?.proNumber
+  // GET USER ID
+  const userId = useSelector(
+    (state: RootState) => state.auth.login?.currentUser
   );
+  console.log("User: ", userId);
+
+  const navigate = useNavigate()
   const param = useParams();
-  // console.log("Param: ", param);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, loading }: TypeDetail[] = useFetchProduct(
-    `products/${param?.id}`
-  );
+  const { data, loading } = useFetchProduct(`products/${param?.id}`);
 
-  console.log("Data: ", { data });
+  // console.log("Data: ", data);
 
   const handleAddProductIn = () => {
-    const number = getAddData + 1;
-    // console.log("So Luong: ", number); // Bây giờ sẽ hiển thị giá trị đã cập nhật
-    dispatch(addProduct(number));
-
-    navigate("/home");
-    // <ShowNotification/>
+    if (data && data.id && data.title) {
+      // kiểm tra xem data có tồn tại và hợp lệ
+      dispatch(addProduct(data));
+      console.log("Product dispatched: ", data);
+    } else {
+      console.error("Invalid data, cannot dispatch:", data);
+    }
+    navigate("/home")
   };
 
   return (

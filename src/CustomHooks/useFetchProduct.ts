@@ -1,9 +1,10 @@
 
 import { useEffect, useState } from "react"
 import { API_Products } from "../main"
+import { TypeDataProduct } from "../reducer/productReducer"
 
 const useFetchProduct = (endPoint: string) => {
-    const [data, setData] = useState([])
+    const [data, setData] = useState<TypeDataProduct>()
     const [loading, setLoading] = useState(false)
     const fetchData = async () => {
         try {
