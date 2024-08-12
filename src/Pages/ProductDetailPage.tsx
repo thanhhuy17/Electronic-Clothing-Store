@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useFetchProduct from "../CustomHooks/useFetchProduct";
 import { FaStar } from "react-icons/fa";
 import { Button } from "antd";
-import { addProduct } from "../reducer/productReducer";
+import { addProduct} from "../reducer/productReducer";
 
 // interface TypeDetail extends TypeDataProduct {
 //   rating: {
@@ -16,11 +16,11 @@ import { addProduct } from "../reducer/productReducer";
 const ProductDetailPage = () => {
   // GET USER ID
   const userId = useSelector(
-    (state: RootState) => state.auth.login?.currentUser
+    (state: RootState) => state.auth.login?.currentUser?._id
   );
   console.log("User: ", userId);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const param = useParams();
   const dispatch = useDispatch();
 
@@ -29,14 +29,19 @@ const ProductDetailPage = () => {
   // console.log("Data: ", data);
 
   const handleAddProductIn = () => {
+    if (!userId) {
+      console.error("User ID is required to add a product to the cart.");
+      return;
+    }
+
     if (data && data.id && data.title) {
       // kiểm tra xem data có tồn tại và hợp lệ
-      dispatch(addProduct(data));
-      console.log("Product dispatched: ", data);
+      dispatch(addProduct({ product: data, userId }));
+      console.log("Product dispatched: ", { product: data, userId });
     } else {
       console.error("Invalid data, cannot dispatch:", data);
     }
-    navigate("/home")
+    navigate("/home");
   };
 
   return (

@@ -12,10 +12,8 @@ export type TypeDataProduct = {
         rate: number;
         count: number;
     };
+    userId?: string
 }
-
-// TYPE OF CART
-
 
 export interface TypeInitialState {
     productData: TypeDataProduct[],
@@ -33,20 +31,30 @@ export const productSlice = createSlice({
         setProduct: (state, action: PayloadAction<TypeDataProduct[]>) => {
             state.productData = action.payload
         },
-        addProduct: (state, action: PayloadAction<TypeDataProduct>) => {
-            state.cartData = [...state.cartData, action.payload];
+        addProduct: (state, action: PayloadAction<{ product: TypeDataProduct, userId: string }>) => {
+            const { product, userId } = action.payload
+            state.cartData = [...state.cartData, { ...product, userId }];
             console.log("OKE: ", state.cartData);
         },
-        deleteProductInCart: (state, action) => {
-            const idProduct = action.payload
-            const findIdProduct = state.cartData.findIndex(pro => pro.id == idProduct)
-            if (findIdProduct !== -1) {
+        deleteProductInCart: (state, action: PayloadAction<{ userId: string }>) => {
+            const { userId } = action.payload // id đc bắn qua
+            const findIdProduct = state.cartData.findIndex(pro => pro.userId === userId)
+            if (findIdProduct !== -1) { // -1 nghĩa là không tìm thấy: khác -1 nghĩa là tìm thấy 
                 state.cartData.splice((findIdProduct), 1)
             }
+
+        },
+        showProductInId: (state, action) => {
+            const userId = action.payload
+            state.cartData.filter(user => { return user.userId === userId })
+
+            console.log("Huy", state.cartData.filter(user => user.userId === userId));
+            // console.log( "Admin",userId);
         }
+
     }
 })
 
-export const { setProduct, addProduct, deleteProductInCart } = productSlice.actions
+export const { setProduct, addProduct, deleteProductInCart, showProductInId } = productSlice.actions
 const productSliceApp = productSlice.reducer
 export default productSliceApp
