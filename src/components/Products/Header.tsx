@@ -17,10 +17,15 @@ const Header = () => {
     (state: RootState) => state.auth?.login?.currentUser?.admin
   );
 
+
   // console.log(user);
   const numberProduct = useSelector(
-    (state: RootState) => state.product?.cartData.length
+    (state: RootState) => state.product?.cartData
   );
+
+  const productInCartTest = numberProduct.filter((user : any)=> {return user?.userId === user1?._id})
+
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -47,7 +52,7 @@ const Header = () => {
           <GiShoppingCart size={"2.5rem"} />
         </Link>
         <span className="text-red-600 text-2xl bg-white px-3 rounded-full">
-          {numberProduct}
+          {productInCartTest.length}
         </span>
       </div>
 

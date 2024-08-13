@@ -1,25 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { Button } from "antd";
-import { deleteProductInCart, showProductInId } from "../../reducer/productReducer";
-import { useEffect } from "react";
+import { deleteProductInCart } from "../../reducer/productReducer";
+// import { useEffect } from "react";
 
 const ShowProductsCart = () => {
   const dispatch = useDispatch();
   const User = useSelector((state: RootState) => state.auth.login.currentUser);
 
   // Dùng useEffect
-  useEffect(()=>{
-   dispatch(showProductInId(User?._id))
-  },[User?._id])
-
+  // useEffect(()=>{
+  //  dispatch(showProductInId(User?._id))
+  // },[])
 
   const productInCart = useSelector(
     (state: RootState) => state.product.cartData
   );
-  console.log("productInCart: ", productInCart);
 
-  const handleDeleteProductInCart = (userId: any) => {
+  const productInCartTest = productInCart.filter((user: any) => {
+    return user?.userId === User?._id;
+  });
+  // console.log("productInCart: ", productInCartTest);
+
+  const handleDeleteProductInCart = (userId : any) => {
     dispatch(deleteProductInCart(userId));
   };
 
@@ -28,8 +31,9 @@ const ShowProductsCart = () => {
       <h2 className="text-3xl text-emerald-400 my-3">
         Products in the shopping cart of User: {User?.username}
       </h2>
+
       <div className="flex flex-col gap-3">
-        {productInCart.map((product) => {
+        {productInCartTest.map((product) => {
           return (
             <div
               key={product.id + Math.random()}

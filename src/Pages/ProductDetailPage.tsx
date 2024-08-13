@@ -18,7 +18,7 @@ const ProductDetailPage = () => {
   const userId = useSelector(
     (state: RootState) => state.auth.login?.currentUser?._id
   );
-  console.log("User: ", userId);
+  // console.log("User: ", userId);
 
   const navigate = useNavigate();
   const param = useParams();
