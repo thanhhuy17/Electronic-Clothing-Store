@@ -44,7 +44,7 @@ export const productSlice = createSlice({
             const findIdProduct = state.cartData.findIndex((pro) => pro.userId === userId);
 
             console.log("SP ở vị trí: ", index);
-            if (findIdProduct !== -1 && index) { // -1 nghĩa là không tìm thấy: khác -1 nghĩa là tìm thấy 
+            if (findIdProduct !== -1 && (index >= 0)) { // -1 nghĩa là không tìm thấy: khác -1 nghĩa là tìm thấy 
                 state.cartData.splice(index, 1)
             }
         },
