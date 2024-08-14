@@ -36,7 +36,7 @@ export const productSlice = createSlice({
             state.cartData = [...state.cartData, { ...product, userId }];
             console.log("OKE: ", state.cartData);
         },
-        deleteProductInCart: (state, action: PayloadAction<{ userId: any, index: any }>) => {
+        deleteProductInCart: (state, action: PayloadAction<{ userId: string, index: number }>) => {
             const { userId, index } = action.payload // id đc bắn qua
 
             console.log("userIdDelete", userId, index);
@@ -47,11 +47,7 @@ export const productSlice = createSlice({
             if (findIdProduct !== -1 && index) { // -1 nghĩa là không tìm thấy: khác -1 nghĩa là tìm thấy 
                 state.cartData.splice(index, 1)
             }
-
         },
-
-
-
     }
 })
 

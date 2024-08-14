@@ -8,11 +8,6 @@ const ShowProductsCart = () => {
   const dispatch = useDispatch();
   const User = useSelector((state: RootState) => state.auth.login.currentUser);
 
-  // Dùng useEffect
-  // useEffect(()=>{
-  //  dispatch(showProductInId(User?._id))
-  // },[])
-
   const productInCart = useSelector(
     (state: RootState) => state.product.cartData
   );
@@ -22,16 +17,22 @@ const ShowProductsCart = () => {
   });
   // console.log("productInCart: ", productInCartTest);
   const handleDeleteProductInCart = (userId: any, index: any) => {
-    const userIdAndIndex = {userId, index}
+    const userIdAndIndex = { userId, index };
     dispatch(deleteProductInCart(userIdAndIndex));
-    
   };
+
+  const totalAmount = productInCartTest.reduce((total, sumMoney) => {
+    return total + sumMoney.price;
+  }, 0);
 
   return (
     <div className="mt-[5rem] mx-[20rem]">
       <h2 className="text-3xl text-emerald-400 my-3">
         Products in the shopping cart of User: {User?.username}
       </h2>
+      <h3 className="text-2xl text-emerald-400 my-3">
+        Total Amount: {totalAmount} $
+      </h3>
 
       <div className="flex flex-col gap-3">
         {productInCartTest.map((product, index) => {
@@ -49,12 +50,16 @@ const ShowProductsCart = () => {
 
                 <div>{product.title}</div>
               </div>
-              <div>
+
+              <div className="flex items-center">
+                <div className="text-emerald-500 text-[20px] font-semibold">
+                  {product.price} $
+                </div>
                 <Button
                   danger
                   type="primary"
                   onClick={() => handleDeleteProductInCart(User?._id, index)}
-                  className="mr-5"
+                  className="mx-5"
                 >
                   Delete
                 </Button>
