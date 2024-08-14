@@ -21,9 +21,10 @@ const ShowProductsCart = () => {
     return user?.userId === User?._id;
   });
   // console.log("productInCart: ", productInCartTest);
-
-  const handleDeleteProductInCart = (userId : any) => {
-    dispatch(deleteProductInCart(userId));
+  const handleDeleteProductInCart = (userId: any, index: any) => {
+    const userIdAndIndex = {userId, index}
+    dispatch(deleteProductInCart(userIdAndIndex));
+    
   };
 
   return (
@@ -33,18 +34,27 @@ const ShowProductsCart = () => {
       </h2>
 
       <div className="flex flex-col gap-3">
-        {productInCartTest.map((product) => {
+        {productInCartTest.map((product, index) => {
           return (
             <div
               key={product.id + Math.random()}
-              className="flex justify-between items-center"
+              className="flex justify-between items-center w-full h-[100px] bg-neutral-600"
             >
-              <div>{product.title}</div>
+              <div className="flex items-center">
+                <img
+                  src={product.image}
+                  alt="image"
+                  className="w-14 rounded-md mx-5"
+                />
+
+                <div>{product.title}</div>
+              </div>
               <div>
                 <Button
                   danger
                   type="primary"
-                  onClick={() => handleDeleteProductInCart(User?._id)}
+                  onClick={() => handleDeleteProductInCart(User?._id, index)}
+                  className="mr-5"
                 >
                   Delete
                 </Button>

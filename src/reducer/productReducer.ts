@@ -36,19 +36,22 @@ export const productSlice = createSlice({
             state.cartData = [...state.cartData, { ...product, userId }];
             console.log("OKE: ", state.cartData);
         },
-        deleteProductInCart: (state, action: PayloadAction<{ userIdDelete: string | undefined}>) => {
-            const  userIdDelete  = action.payload // id đc bắn qua
-            // console.log("sosanh1: ", userIdDelete );
-            // console.log("sosanh2: ", state.cartData.findIndex(pro => pro.userId));
+        deleteProductInCart: (state, action: PayloadAction<{ userId: any, index: any }>) => {
+            const { userId, index } = action.payload // id đc bắn qua
 
-            const findIdProduct = state.cartData.findIndex(pro => pro.userId === userIdDelete);
+            console.log("userIdDelete", userId, index);
 
-            // console.log("Có giống Id hay không: ", findIdProduct);
-            if (findIdProduct !== -1) { // -1 nghĩa là không tìm thấy: khác -1 nghĩa là tìm thấy 
-                state.cartData.splice((findIdProduct), 1)
+            const findIdProduct = state.cartData.findIndex((pro) => pro.userId === userId);
+
+            console.log("SP ở vị trí: ", index);
+            if (findIdProduct !== -1 && index) { // -1 nghĩa là không tìm thấy: khác -1 nghĩa là tìm thấy 
+                state.cartData.splice(index, 1)
             }
 
-        }
+        },
+
+
+
     }
 })
 
