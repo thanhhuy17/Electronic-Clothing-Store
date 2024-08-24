@@ -12,7 +12,7 @@ const ShowUsers = () => {
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.auth.login?.currentUser);
   const msg = useSelector((state: RootState) => state.user?.msg);
-  console.log("MSG: ", msg);
+  // console.log("MSG: ", msg);
   const [showMsg, setShowMsg] = useState(false);
   const axiosJWT = createAxios(user, dispatch, loginSuccess);
 
