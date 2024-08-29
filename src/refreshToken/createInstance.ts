@@ -17,6 +17,7 @@ const refreshToken = async () => {
 export const createAxios = (user: any, dispatch: any, stateSuccess: any) => {
     const newInstance = axios.create({
         baseURL: "http://127.0.0.1:8000",
+
         withCredentials: true, // Để axios gửi và nhận cookies
 
     });
@@ -35,7 +36,8 @@ export const createAxios = (user: any, dispatch: any, stateSuccess: any) => {
                     accessToken: data.accessToken,
                 };
                 dispatch(stateSuccess(refreshUser));
-                config.headers["token"] = "Bearer " + data.accessToken;
+                config.headers["Authorization"] = "Bearer " + data.accessToken;
+                //config.headers["token"] = "Bearer " + data.accessToken;
             }
             return config;
         },
