@@ -25,7 +25,7 @@ connectToMongoDB();
 // });
 
 const corsOptions = {
-  origin: "http://localhost:5173", // URL của frontend http://127.0.0.1:5173
+  origin: "http://localhost:5173", // URL của frontend 
   //origin: "http://127.0.0.1:5173", // URL của frontend
   credentials: true, // Để cho phép gửi và nhận cookies
 };
