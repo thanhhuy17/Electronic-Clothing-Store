@@ -36,8 +36,8 @@ export const createAxios = (user: any, dispatch: any, stateSuccess: any) => {
                     accessToken: data.accessToken,
                 };
                 dispatch(stateSuccess(refreshUser));
-                config.headers["Authorization"] = "Bearer " + data.accessToken;
-                //config.headers["token"] = "Bearer " + data.accessToken;
+                // config.headers["Authorization"] = "Bearer " + data.accessToken;
+                config.headers["token"] = "Bearer " + data.accessToken;
             }
             return config;
         },
