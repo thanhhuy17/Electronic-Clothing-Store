@@ -10,7 +10,7 @@ const userController = {
       return res.status(500).json(err);
     }
   },
-
+  // DELETE USER
   deleteUser: async (req, res) => {
     try {
       // Xóa thực trong DB
