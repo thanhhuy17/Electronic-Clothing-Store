@@ -8,12 +8,12 @@ const WelcomeMyStore = () => {
    justify-center text-5xl font-bold text-emerald-500 "
     >
       Welcome My Store
-      <div className="flex gap-5 my-[5rem]">
+      <div className="flex gap-10 my-[5rem] ">
         <Link to={"/login"}>
-          <Button size="large">Login</Button>
+          <Button size="large" className="font-bold">Login</Button>
         </Link>
         <Link to={"/register"}>
-          <Button size="large">Register</Button>
+          <Button size="large" className="font-bold">Register</Button>
         </Link>
       </div>
     </div>
